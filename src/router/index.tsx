@@ -5,6 +5,10 @@ import Register from '../pages/Register'
 import HomePage from '../pages/HomePage'
 import ProductList from '../pages/ProductList'
 
+export interface RouteHandle {
+  showProfile?: boolean
+}
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -21,19 +25,23 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Login />,
+        handle: { showProfile: false },
       },
       {
         path: 'register',
         element: <Register />,
+        handle: { showProfile: false },
       },
       {
         path: 'homepage',
         element: <HomePage />,
+        handle: { showProfile: true },
       },
       {
         path: 'product',
-        element: <ProductList />
-      }
+        element: <ProductList />,
+        handle: { showProfile: true },
+      },
     ],
   },
 ])

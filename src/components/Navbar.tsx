@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useLocation } from "react-router";
+import { useMatches } from "react-router";
+import type { RouteHandle } from "../router";
 import vidioBelajarLogo from "../assets/images/logo.png";
-import {ProfileMenu,  MobileMenu} from "./ProfileMenu";
+import { ProfileMenu, MobileMenu } from "./ProfileMenu";
 import { Burger } from "@mantine/core";
-
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { pathname } = useLocation();
-	const pathLowCase = pathname.toLowerCase()
-	const isHomePage = pathLowCase === "/homepage";
+	const matches = useMatches();
+	const currentMatch = matches[matches.length - 1];
+	const showProfile = Boolean((currentMatch?.handle as RouteHandle | undefined)?.showProfile);
+
 	return (
 		<>
 			<nav className="sticky top-0 z-20 w-full border-b border-white border-b-gray-300 bg-white">
@@ -18,7 +19,7 @@ const Navbar = () => {
 						<img src={vidioBelajarLogo} alt="vidio-belajar-logo" />
 					</a>
 
-					{isHomePage && (
+					{showProfile && (
 						<>
 							<div className="hidden md:block">
 								<div className="flex gap-3 text-gray-800/80">
@@ -33,8 +34,7 @@ const Navbar = () => {
 					)}
 				</div>
 			</nav>
-			{isHomePage && <MobileMenu isOpen={isOpen} />}
-		
+			{showProfile && <MobileMenu isOpen={isOpen} />}
 		</>
 	);
 };
