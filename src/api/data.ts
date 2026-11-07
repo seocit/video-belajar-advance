@@ -16,128 +16,7 @@ import profile6 from "../assets/images/profile/profile-6.png";
 import profile7 from "../assets/images/profile/profile-7.png";
 import profile8 from "../assets/images/profile/profile-8.png";
 import profile9 from "../assets/images/profile/profile-9.png";
-const videos = [
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-	{
-		title: "Big 4 Auditor Financial Analyst",
-		description:
-			"Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan  kurikulum terbaik",
-		mentor: {
-			name: "Jenna Ortega",
-			job: "Senior Accountant di Gojek",
-		},
-		rating: 3.5,
-		viewer: 86,
-		price: 300,
-	},
-];
+
 const catalogImages = [
 	catalog1,
 	catalog2,
@@ -162,7 +41,6 @@ const profileImages = [
 	profile9,
 ];
 export {
-	videos,
 	catalogImages,
 	profileImages,
 };
