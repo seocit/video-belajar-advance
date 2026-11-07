@@ -1,6 +1,5 @@
 import { Checkbox } from '@mantine/core'
 import { BookText, ChevronUp, Clock3, ShoppingBag } from 'lucide-react'
-import React from 'react'
 
 const FilterContent = () => {
     return (

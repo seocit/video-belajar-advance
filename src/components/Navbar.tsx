@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMatches } from "react-router";
+import { Link, useMatches } from "react-router";
 import type { RouteHandle } from "../router";
 import vidioBelajarLogo from "../assets/images/logo.png";
 import { ProfileMenu, MobileMenu } from "./ProfileMenu";
@@ -22,8 +22,8 @@ const Navbar = () => {
 					{showProfile && (
 						<>
 							<div className="hidden md:block">
-								<div className="flex gap-3 text-gray-800/80">
-									<button>Kategori</button>
+								<div className="flex items-center gap-3 text-gray-800/80">
+									<Link to={"product"}>Kategori</Link>
 									<ProfileMenu />
 								</div>
 							</div>
