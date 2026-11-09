@@ -1,51 +1,24 @@
 import { ChevronDown, Search, SlidersHorizontal } from "lucide-react"
 import FilterContent from "../components/FilterContent"
-import { Input, Select } from "@mantine/core"
+import { Button, Input, Modal, Select } from "@mantine/core"
 import ProductCard from "../components/ProductCard"
 import { useEffect, useMemo, useState } from "react"
-import { getVideos, type Video } from "../services/api"
 import { catalogImages, profileImages } from "../api/data"
+import ProductInputForm from "../components/ProductInputForm"
+import { useVideos } from "../store/useVideos"
 
 const ProductList = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { videos, isLoading, fetchVideo, isModalOpen, openModal, closeModal, selectedVideo } = useVideos();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortBy, setSortBy] = useState<string | null>(null);
 
   useEffect(() => {
-    let ignore = false;
+    fetchVideo();
+  }, [fetchVideo]);
 
-    const fetchData = async () => {
-      try {
-        const data = await getVideos();
-        if (!ignore) {
-          setVideos(data);
-        }
-      } catch (err) {
-        if (!ignore) {
-          console.error("Gagal mengambil data video:", err);
-          setError("Gagal memuat data video.");
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
-  // Filter dan Sort video berdasarkan search input dan dropdown urutan
   const processedVideos = useMemo(() => {
     let result = [...videos];
 
-    // Filter berdasarkan kata kunci pencarian
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       result = result.filter(
@@ -69,9 +42,9 @@ const ProductList = () => {
           case "Z to A":
             return b.title.localeCompare(a.title);
           case "Rating Tertinggi":
-            return b.rating - a.rating;
+            return (b.rating ?? 0) - (a.rating ?? 0);
           case "Rating Terendah":
-            return a.rating - b.rating;
+            return (a.rating ?? 0) - (b.rating ?? 0);
           default:
             return 0;
         }
@@ -100,16 +73,14 @@ const ProductList = () => {
             <div className="flex flex-wrap items-center gap-2 mb-4">
               <button
                 type="button"
-                className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg lg:hidden hover:bg-gray-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-gray-300 rounded-lg lg:hidden hover:bg-gray-50 cursor-pointer"
               >
                 <SlidersHorizontal size={15} />
                 Filter
               </button>
-              <button
-                className="px-4 py-1.5 text-sm bg-primary text-white rounded-xl hover:bg-primary/90"
-              >
-                + Tambah Item
-              </button>
+              <Button color="green" variant="filled" onClick={() => openModal()}>
+                Tambah Item +
+              </Button>
 
               <div className="flex items-center gap-2 ml-auto">
                 <Select
@@ -141,17 +112,16 @@ const ProductList = () => {
               </div>
             </div>
 
-            {loading && <p className="text-gray-500 py-8">Memuat data video...</p>}
-            {error && <p className="text-red-500 py-8">{error}</p>}
+            {isLoading && <p className="text-gray-500 py-8">Memuat data video...</p>}
 
-            {!loading && !error && processedVideos.length === 0 && (
+            {!isLoading && processedVideos.length === 0 && (
               <div className="py-12 text-center text-gray-500">
                 <p className="text-base font-medium">Tidak ada video yang cocok dengan pencarian.</p>
                 <p className="text-xs text-gray-400 mt-1">Coba gunakan kata kunci atau filter lain.</p>
               </div>
             )}
 
-            {!loading && !error && processedVideos.length > 0 && (
+            {!isLoading && processedVideos.length > 0 && (
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {processedVideos.map((item, index) => (
                   <ProductCard
@@ -165,6 +135,9 @@ const ProductList = () => {
               </div>
             )}
           </section>
+          <Modal opened={isModalOpen} onClose={closeModal} title={selectedVideo ? "Edit Produk" : "Input Produk"}>
+              <ProductInputForm/>
+          </Modal>
         </div>
       </div>
     </>

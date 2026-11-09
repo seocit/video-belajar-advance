@@ -1,5 +1,6 @@
 import type { Video } from "../services/api"
 import ratingStar from "../assets/images/rating.svg"
+import { useVideos } from "../store/useVideos"
 
 type ProductCardProps = {
     video: Video;
@@ -10,9 +11,19 @@ type ProductCardProps = {
 
 const ProductCard = ({ video, image, avatar, showActions = false }: ProductCardProps) => {
     const { title, description, mentor, rating, viewer, price } = video
+    const { deleteVideo, openModal } = useVideos()
 
-    // Menangani jika mentor berupa string atau objek { name, job }
-    
+    const handleDelete = async () => {
+        if (!video.id) return
+        const isConfirmed = window.confirm(`Apakah Anda yakin ingin menghapus "${title}"?`)
+        if (isConfirmed) {
+            try {
+                await deleteVideo(video.id)
+            } catch (error) {
+                console.error("Gagal menghapus video:", error)
+            }
+        }
+    }
 
     return (
         <div className="flex flex-col justify-between gap-3 p-4 bg-white border border-gray-400/40 rounded-2xl hover:shadow-xl transition-all">
@@ -45,7 +56,7 @@ const ProductCard = ({ video, image, avatar, showActions = false }: ProductCardP
             <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                 <span className="flex items-center gap-1 text-gray-500 text-xs sm:text-sm">
                     <img src={ratingStar} alt="rating" className="w-4 h-4" />
-                    <span className="underline">{rating} ({viewer})</span>
+                    <span className="underline">{rating ?? 0} ({viewer ?? 0})</span>
                 </span>
                 <p className="text-primary text-lg font-bold sm:text-xl">
                     Rp {price}K
@@ -56,13 +67,15 @@ const ProductCard = ({ video, image, avatar, showActions = false }: ProductCardP
                 <div className="flex gap-2 justify-end pt-2 border-t border-gray-100">
                     <button
                         type="button"
-                        className="flex-1 py-1.5 text-xs font-semibold border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors sm:flex-none sm:px-4">
+                        onClick={() => openModal(video)}
+                        className="flex-1 py-1.5 text-xs font-semibold border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors sm:flex-none sm:px-4 cursor-pointer">
                         Edit
                     </button>
 
                     <button
                         type="button"
-                        className="flex-1 py-1.5 text-xs font-semibold border border-red-500 text-red-600 rounded-lg hover:bg-red-50 transition-colors sm:flex-none sm:px-4">
+                        onClick={handleDelete}
+                        className="flex-1 py-1.5 text-xs font-semibold border border-red-500 text-red-600 rounded-lg hover:bg-red-50 transition-colors sm:flex-none sm:px-4 cursor-pointer">
                         Hapus
                     </button>
                 </div>
